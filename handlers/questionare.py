@@ -8,7 +8,6 @@ from keyboards.questionnaire import (
     python_is_keyboard,
     bird_is_keyboard,
     geeks_is_keyboard,
-
 )
 
 

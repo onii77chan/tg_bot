@@ -7,14 +7,29 @@ class Database:
         self.connection = sqlite3.connect("db.sqlite3")
         self.cursor = self.connection.cursor()
 
-    def sql_create_tables(self):
-        if self.connection:
-            print("Database connected successfully")
+    def __del__(self):
+        self.connection.close()
 
-        self.connection.execute(sql_queries.CREATE_USER_TABLE_QUERY)
-        self.connection.execute(sql_queries.CREATE_BAN_USER_TABLE_QUERY)
-        self.connection.execute(sql_queries.CREATE_MANGA_NEWS_TABLE_QUERY)
-        self.connection.commit()
+    def sql_create_tables(self):
+        try:
+            self.connection.execute(sql_queries.CREATE_USER_TABLE_QUERY)
+            self.connection.execute(sql_queries.CREATE_BAN_USER_TABLE_QUERY)
+            self.connection.execute(sql_queries.CREATE_MANGA_NEWS_TABLE_QUERY)
+            self.connection.execute(sql_queries.CREATE_PROFILE_TABLE_QUERY)
+            self.connection.commit()
+            print("Tables created successfully")
+        except sqlite3.Error as e:
+            print(f"Error creating tables: {e}")
+
+    def insert_profile(self, tg_id, nickname, bio, age, married, gender, favorite_color, nationality, photo):
+        try:
+            self.cursor.execute(
+                sql_queries.INSERT_PROFILE_QUERY,
+                (None, tg_id, nickname, bio, age, married, gender, favorite_color, nationality, photo)
+            )
+            self.connection.commit()
+        except sqlite3.Error as e:
+            print(f"Error inserting profile: {e}")
 
     def sql_insert_user(self, tg_id, username, first_name, last_name):
         self.cursor.execute(
@@ -51,3 +66,12 @@ class Database:
     def add_manga_news(self, titles):
         self.cursor.execute(sql_queries.INSERT_MANGA_NEWS_QUERY, (None, titles))
         self.connection.commit()
+
+    def reputation_check(self, tg_id):
+        self.cursor.execute(
+            sql_queries.REPUTATION_CHECK_QUERY,
+            (tg_id,)
+        )
+        result = self.cursor.fetchone()
+        self.connection.commit()
+        return result[0] if result else "Поздравляю у вас нету нарушений"

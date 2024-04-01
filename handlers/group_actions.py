@@ -1,16 +1,18 @@
 from aiogram import types, Dispatcher
+
 from config import bot
 from profanity_check import predict_prob
 from DB.bot_DB import Database
 import datetime
+db = Database()
 
 
 async def chat_messages(message: types.Message):
-    db = Database()
+
     ban_word_predict_prob = predict_prob([message.text])
     print(ban_word_predict_prob)
 
-    if ban_word_predict_prob > 0.6:
+    if ban_word_predict_prob > 0.5:
         ban_user = db.select_ban_user(
             tg_id=message.from_user.id
         )
@@ -37,7 +39,25 @@ async def chat_messages(message: types.Message):
         )
 
 
+async def check_user_reputation(call: types.CallbackQuery):
+    user_reputation = db.reputation_check(call.from_user.id)
+    await bot.send_message(
+        chat_id=call.from_user.id,
+        text=f'число ваших нарушений: {user_reputation}',
+    )
+
+
+async def select_ban_count():
+    db.reputation_check(
+        Dispatcher.get
+    )
+
+
 def register_group_actions_handlers(dp: Dispatcher):
     dp.register_message_handler(
         chat_messages
+    )
+    dp.register_callback_query_handler(
+        check_user_reputation,
+        lambda call: call.data == "reputation_check"
     )

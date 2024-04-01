@@ -1,0 +1,11 @@
+.venv
+media
+db.sqlite3
+identifier.sqlite
+.env
+DB/__init__.py
+handlers/__init__.py
+keyboards/__init__.py
+scrapers/__init__.py
+.idea/
+__pycache__/

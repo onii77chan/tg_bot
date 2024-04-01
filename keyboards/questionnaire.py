@@ -4,7 +4,6 @@ from aiogram.types import (
 )
 
 
-
 async def python_is_keyboard():
     markup = InlineKeyboardMarkup()
 
@@ -84,9 +83,6 @@ async def questionnaire_keyboard():
         'гикс это',
         callback_data="button_geeks_is"
     )
-
-
-
 
     markup.add(button_python_is)
     markup.add(button_bird_is)

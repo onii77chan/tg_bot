@@ -5,6 +5,7 @@ from handlers import (
     questionare,
     group_actions,
     dot,
+    registration,
 
 )
 from DB import bot_DB
@@ -19,7 +20,7 @@ start.register_start_handler(dp=dp)
 questionare.register_questionaire_handlers(dp=dp)
 dot.register_manga_handler(dp=dp)
 group_actions.register_group_actions_handlers(dp=dp)
-
+registration.register_registration_handlers(dp=dp)
 
 if __name__ == "__main__":
     executor.start_polling(

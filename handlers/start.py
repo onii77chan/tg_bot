@@ -24,7 +24,7 @@ async def start_menu(message: types.Message):
     #     reply_markup=await start_menu_keyboard()
     # )
 
-    with open(MEDIA_DESTINATION, 'rb') as animation:
+    with open(MEDIA_DESTINATION + 'tg_bot.gif', 'rb') as animation:
         await bot.send_animation(
             chat_id=message.from_user.id,
             animation=animation,

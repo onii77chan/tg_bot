@@ -215,8 +215,10 @@ def register_registration_handlers(dp: Dispatcher):
     )
     dp.register_message_handler(
         load_nationality,
+        state=RegistrationStates.nationality,
         content_types=['text']
     )
+
     dp.register_message_handler(
         load_photo,
         state=RegistrationStates.photo,

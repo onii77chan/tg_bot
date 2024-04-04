@@ -39,6 +39,6 @@ async def start_menu_keyboard():
     markup.add(registration_button)
     markup.add(next_button)
     markup.add(reputation_check_button)
-    markup.add(button_manga_news)
+    # markup.add(button_manga_news)
     markup.add(button_quiz)
     return markup

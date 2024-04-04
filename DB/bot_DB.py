@@ -129,7 +129,6 @@ class Database:
             (tg_id,)
         ).fetchone()
 
-
     def update_profile(self, nickname, bio, age, married, gender, favorite_color, nationality, photo, tg_id):
         self.cursor.execute(
             sql_queries.UPDATE_PROFILE_QUERY,

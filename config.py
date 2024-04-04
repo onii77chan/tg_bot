@@ -7,5 +7,5 @@ PROXY_URL = 'http://proxy.server:3128'
 storage = MemoryStorage()
 TOKEN = config("TOKEN")
 MEDIA_DESTINATION = config("MEDIA_DESTINATION")
-bot = Bot(token=TOKEN, proxy=PROXY_URL)
+bot = Bot(token=TOKEN)
 dp = Dispatcher(bot=bot, storage=storage)

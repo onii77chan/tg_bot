@@ -102,7 +102,7 @@ UNIQUE(OWNER_TELEGRAM_ID, diser_TELEGRAM_ID)
 
 
 INSERT_LIKE_QUERY = """
-INSERT INTO like_profile VALUES (?,?,?)
+INSERT OR IGNORE INTO like_profile VALUES (?,?,?)
 """
 
 INSERT_DIS_QUERY = """
